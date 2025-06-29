@@ -73,7 +73,8 @@
         [Fact]
         public void UpdateProductDescription_UpdatesProduct_WhenExists()
         {
-            var updateResult = _controller.UpdateProductDescription(1, "Updated Description");
+            //var updateResult = _controller.UpdateProductDescription(1, "Updated Description");
+            var updateResult = _controller.UpdateProductDescription(1, new UpdateDescriptionDto { Description = "Updated Description" });
             var updatedProduct = _context.Products.Find(1);
 
             Assert.IsType<NoContentResult>(updateResult);
@@ -84,7 +85,8 @@
         [Fact]
         public void UpdateProductDescription_ReturnsNotFound_WhenDoesNotExist()
         {
-            var result = _controller.UpdateProductDescription(99, "New Description");
+            //var result = _controller.UpdateProductDescription(99, "New Description");
+            var result = _controller.UpdateProductDescription(99, new UpdateDescriptionDto { Description = "Updated Description" });
             Assert.IsType<NotFoundResult>(result);
         }
     }

@@ -50,17 +50,36 @@ public class ProductsController : ControllerBase
         return Ok(product);
     }
 
+    ///// <summary>
+    ///// Updates the description of a product.
+    ///// </summary>
+    ///// <param name="id">Product ID</param>
+    ///// <param name="description">New description</param>
+    //[HttpPatch("{id}")]
+    //public IActionResult UpdateProductDescription(int id, [FromBody] string description)
+    //{
+    //    var product = _context.Products.Find(id);
+    //    if (product == null) return NotFound();
+    //    product.Description = description;
+    //    _context.SaveChanges();
+    //    return NoContent();
+    //}
+
     /// <summary>
     /// Updates the description of a product.
     /// </summary>
     /// <param name="id">Product ID</param>
-    /// <param name="description">New description</param>
-    [HttpPatch("{id}")]
-    public IActionResult UpdateProductDescription(int id, [FromBody] string description)
+    /// <param name="dto">New description object</param>
+    [HttpPatch("{id}")]    public IActionResult UpdateProductDescription(int id, [FromBody] UpdateDescriptionDto dto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         var product = _context.Products.Find(id);
         if (product == null) return NotFound();
-        product.Description = description;
+        product.Description = dto.Description;
         _context.SaveChanges();
         return NoContent();
     }
